@@ -1,0 +1,145 @@
+<mxfile host="65bd71144e">
+    <diagram name="Temporal on GCP" id="arch">
+        <mxGraphModel dx="2166" dy="1629" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1500" pageHeight="950" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Temporal Test Deployment on GCP" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="20" width="500" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="user" value="Browser&#10;(you)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="420" width="40" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="project" value="GCP Project: stunning-vertex-437612-f6" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1A73E8;dashed=0;verticalAlign=top;fontSize=13;fontStyle=1;align=left;spacingLeft=10;spacingTop=6;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="80" width="1280" height="830" as="geometry"/>
+                </mxCell>
+                <mxCell id="region" value="region: us-central1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F9FA;strokeColor=#5F6368;dashed=8;verticalAlign=top;fontSize=11;fontStyle=2;align=left;spacingLeft=10;spacingTop=6;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="120" width="1240" height="770" as="geometry"/>
+                </mxCell>
+                <mxCell id="iam_box" value="IAM bindings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EA4335;strokeWidth=1;dashed=0;verticalAlign=top;fontSize=11;fontStyle=1;align=left;spacingLeft=8;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="140" width="290" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="iam_text" value="• server SA → roles/cloudtrace.agent&#10;• server SA → secretAccessor (db_pwd)&#10;• ui SA → run.invoker (server)&#10;• allUsers → run.invoker (server)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontFamily=Courier New;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="170" width="270" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui_svc" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F0FE;strokeColor=#4285F4;strokeWidth=2;verticalAlign=top;fontSize=12;fontStyle=1;align=left;spacingLeft=10;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="180" width="220" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui_label" value="Cloud Run: temporal-ui" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="188" width="200" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui_meta" value="ingress: ALL  •  port 8080&#10;SA: temporal-ui@" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="210" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui_container" value="container: temporalio/ui:2.27.2&#10;&#10;TEMPORAL_ADDRESS=server:443&#10;TEMPORAL_TLS_SERVER_NAME=...&#10;TEMPORAL_TLS_ENABLE_HOST_VERIFICATION" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#4285F4;strokeWidth=1;verticalAlign=top;fontSize=9;fontFamily=Courier New;align=left;spacingLeft=6;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="250" width="200" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="srv_svc" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F0FE;strokeColor=#4285F4;strokeWidth=2;verticalAlign=top;fontSize=12;fontStyle=1;align=left;spacingLeft=10;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="180" width="540" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="srv_label" value="Cloud Run: temporal-server" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="188" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="srv_meta" value="ingress: ALL  •  port 7233 (h2c/gRPC)  •  min/max instances: 1&#10;SA: temporal-server@  •  startup_probe: 30s + 60×10s" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="210" width="520" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="srv_temporal" value="container: temporal&#10;temporalio/auto-setup:1.24.2&#10;&#10;BIND_ON_IP=0.0.0.0&#10;TEMPORAL_BROADCAST_ADDRESS=127.0.0.1&#10;POSTGRES_SEEDS=&lt;cloudsql-priv-ip&gt;&#10;TEMPORAL_OTEL_EXPORTER_OTLP_ENDPOINT&#10;  =http://localhost:4317&lt;/cloudsql-priv-ip&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#4285F4;strokeWidth=1;verticalAlign=top;fontSize=9;fontFamily=Courier New;align=left;spacingLeft=6;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="252" width="250" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="srv_otel" value="container: otel-collector&#10;custom image (Artifact Registry)&#10;&#10;receivers:&#10;  otlp grpc 0.0.0.0:4317&#10;exporters:&#10;  googlecloud&#10;&#10;GOOGLE_CLOUD_PROJECT=stunning-vertex-..." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#34A853;strokeWidth=1;verticalAlign=top;fontSize=9;fontFamily=Courier New;align=left;spacingLeft=6;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="770" y="252" width="260" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloud_trace" value="Cloud Trace" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E6F4EA;strokeColor=#34A853;strokeWidth=2;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="280" width="290" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="secret" value="Secret Manager&#10;temporal-db-pwd" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F0FE;strokeColor=#4285F4;strokeWidth=2;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="370" width="290" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="ar" value="Artifact Registry&#10;temporal / otel-collector:latest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F0FE;strokeColor=#4285F4;strokeWidth=2;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="470" width="290" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="vpc" value="VPC: temporal-net" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FEF7E0;strokeColor=#F9AB00;strokeWidth=2;dashed=0;verticalAlign=top;fontSize=12;fontStyle=1;align=left;spacingLeft=10;spacingTop=6;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="560" width="800" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="subnet" value="subnet: temporal-subnet  •  10.10.0.0/24" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#1A1A1A;fontFamily=Courier New;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="588" width="400" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="vpcconn" value="Serverless VPC Access&#10;temporal-conn&#10;10.20.0.0/28&#10;e2-micro × 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#F9AB00;strokeWidth=2;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="630" width="220" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="peer_range" value="Private services range&#10;temporal-sql-range&#10;(VPC peering for managed services)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#F9AB00;strokeWidth=1;dashed=4;verticalAlign=middle;fontSize=10;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="630" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloudsql" value="Cloud SQL — Postgres 15&#10;temporal-db (db-custom-1-3840)&#10;Private IP only: 10.103.0.3&#10;Databases: temporal, temporal_visibility&#10;User: temporal" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F0FE;strokeColor=#4285F4;strokeWidth=2;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="630" width="240" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="HTTPS :443" style="endArrow=classic;html=1;strokeColor=#1A73E8;strokeWidth=2;fontSize=10;fontStyle=1;labelBackgroundColor=#FFFFFF;fontColor=#1A1A1A;" parent="1" source="user" target="ui_svc" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="gRPC over TLS :443" style="endArrow=classic;html=1;strokeColor=#1A73E8;strokeWidth=2;fontSize=10;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="ui_svc" target="srv_svc" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="OTLP gRPC&#10;localhost:4317" style="endArrow=classic;html=1;strokeColor=#34A853;strokeWidth=2;fontSize=10;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="srv_temporal" target="srv_otel" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" value="googlecloud&#10;exporter" style="endArrow=classic;html=1;strokeColor=#34A853;strokeWidth=2;fontSize=10;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="srv_otel" target="cloud_trace" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" value="reads secret&#10;at startup" style="endArrow=classic;html=1;strokeColor=#1A73E8;strokeWidth=1;dashed=4;fontSize=9;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.7;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="srv_svc" target="secret" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" value="image pull" style="endArrow=classic;html=1;strokeColor=#5F6368;strokeWidth=1;dashed=4;fontSize=9;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.9;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="srv_svc" target="ar" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7a" value="vpc_access&#10;PRIVATE_RANGES_ONLY" style="endArrow=classic;html=1;strokeColor=#B06000;strokeWidth=2;fontSize=9;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=0.2;exitY=1;entryX=0.5;entryY=0;fontColor=#1A1A1A;" parent="1" source="srv_temporal" target="vpcconn" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7b" value="Postgres :5432" style="endArrow=classic;html=1;strokeColor=#B06000;strokeWidth=2;fontSize=10;fontStyle=1;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;fontColor=#1A1A1A;" parent="1" source="vpcconn" target="cloudsql" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_peering" value="VPC peering" style="endArrow=none;html=1;strokeColor=#B06000;strokeWidth=1;dashed=4;fontSize=9;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontColor=#1A1A1A;" parent="1" source="peer_range" target="cloudsql" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_box" value="Legend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#5F6368;strokeWidth=1;verticalAlign=top;fontSize=10;fontStyle=1;align=left;spacingLeft=8;spacingTop=4;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="780" width="100" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_blue" value="" style="endArrow=classic;html=1;strokeColor=#1A73E8;strokeWidth=2;fontColor=#1A1A1A;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="68" y="810" as="sourcePoint"/>
+                        <mxPoint x="98" y="810" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_blue_text" value="data plane" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="102" y="803" width="60" height="14" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_green" value="" style="endArrow=classic;html=1;strokeColor=#34A853;strokeWidth=2;fontColor=#1A1A1A;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="68" y="830" as="sourcePoint"/>
+                        <mxPoint x="98" y="830" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_green_text" value="telemetry" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="102" y="823" width="60" height="14" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_yellow" value="" style="endArrow=classic;html=1;strokeColor=#B06000;strokeWidth=2;fontColor=#1A1A1A;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="68" y="850" as="sourcePoint"/>
+                        <mxPoint x="98" y="850" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_yellow_text" value="VPC / private" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="102" y="843" width="60" height="14" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_dashed" value="" style="endArrow=classic;html=1;strokeColor=#5F6368;strokeWidth=1;dashed=4;fontColor=#1A1A1A;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="68" y="870" as="sourcePoint"/>
+                        <mxPoint x="98" y="870" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="legend_dashed_text" value="control / boot" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontColor=#1A1A1A;" parent="1" vertex="1">
+                    <mxGeometry x="102" y="863" width="60" height="14" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
